@@ -3,12 +3,13 @@ import AdvertsPage from "./pages/adverts/AdvertsPage";
 
 import LoginPage from "./pages/auth/loginPage";
 
-function App() {
-  const [isLogged, setIsLogged] = useState(false);
+function App({initiallyLogged}) {
+  const [isLogged, setIsLogged] = useState(initiallyLogged);
   const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false)
   return (
     <div className="App">
-      {isLogged ? <AdvertsPage /> : <LoginPage onLogin={handleLogin} />}
+      {isLogged ? <AdvertsPage onLogout={handleLogout}/> : <LoginPage onLogin={handleLogin} />}
     </div>
   );
 }
