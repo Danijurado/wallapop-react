@@ -4,16 +4,17 @@ import { logout } from "../auth/service";
 import "./AdvertsPage.css";
 import { getLatestAdverts } from "./service";
 
-function AdvertsPage({onLogout}) {
+function AdvertsPage({ onLogout }) {
   const [adverts, setAdverts] = useState([]);
   useEffect(() => {
     getLatestAdverts().then((adverts) => setAdverts(adverts));
   }, []);
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    logout();
     onLogout();
   };
+
   return (
     <div className="advertsPage">
       <Button onClick={handleLogout}>Logout</Button>
