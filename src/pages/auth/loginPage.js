@@ -3,8 +3,6 @@ import Button from "../../components/button";
 import { login } from "./service";
 
 function LoginPage({ onLogin }) {
-  
-  
   const [credentials, setCredentials] = useState({
     email: '', 
     password: '',

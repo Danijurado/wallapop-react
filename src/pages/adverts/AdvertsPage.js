@@ -6,6 +6,10 @@ import { getLatestAdverts } from "./service";
 
 function AdvertsPage({ onLogout }) {
   const [adverts, setAdverts] = useState([]);
+  const [filter, setFilter] = useState({
+    name: ''
+  })
+  
   useEffect(() => {
     getLatestAdverts().then((adverts) => setAdverts(adverts));
   }, []);
@@ -15,10 +19,24 @@ function AdvertsPage({ onLogout }) {
     onLogout();
   };
 
+
+  const handlerNameFilterChange = (event) => {
+    setFilter(value => ({...value, name: event.target.value}))
+  };
+
+  const handleSubmitFilter = async (event) => {
+    event.preventDefault();
+    getLatestAdverts(filter).then((adverts) => setAdverts(adverts));
+  };
+
   return (
     <div className="advertsPage">
       <Button onClick={handleLogout}>Logout</Button>
       <h1>Lista de Anuncios</h1>
+      <form onSubmit={handleSubmitFilter}>
+        <input onChange={handlerNameFilterChange} type='text' value={filter.name} />
+        <Button type="submit" $variant="primary" >search</Button>
+      </form>
       <ul style={{ listStyle: "none", border: "1px solid black", padding: 24 }}>
         {adverts.map((ad) => (
           <li key={ad.id}>
