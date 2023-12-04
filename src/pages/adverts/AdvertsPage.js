@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button";
+import Layout from "../../components/layout/layout";
 import { logout } from "../auth/service";
 import "./AdvertsPage.css";
 import { getLatestAdverts } from "./service";
@@ -30,9 +31,10 @@ function AdvertsPage({ onLogout }) {
   };
 
   return (
+    <Layout title='Lista de Anuncios'>
     <div className="advertsPage">
       <Button onClick={handleLogout}>Logout</Button>
-      <h1>Lista de Anuncios</h1>
+      
       <form onSubmit={handleSubmitFilter}>
         <input onChange={handlerNameFilterChange} type='text' value={filter.name} />
         <Button type="submit" $variant="primary" >search</Button>
@@ -55,6 +57,7 @@ function AdvertsPage({ onLogout }) {
         ))}
       </ul>
     </div>
+    </Layout>
   );
 }
 
