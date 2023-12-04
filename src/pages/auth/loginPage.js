@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../components/button";
+import { AuthContext } from "./context";
 import { login } from "./service";
 
-function LoginPage({ onLogin }) {
+function LoginPage() {
+  const {onLogin} = useContext(AuthContext)
   const [credentials, setCredentials] = useState({
     email: '', 
     password: '',
@@ -39,11 +41,11 @@ function LoginPage({ onLogin }) {
           onChange={handlePasswordChange}
           value={credentials.password}
         />
-        <input  onChange={handleSessionChange} type="checkbox" id="session" name="session" checked={credentials.session} />
-        <label htmlFor="session">Keep me signed</label>
         <Button type="submit" $variant="primary" disabled={disabled}>
           Log in
         </Button>
+        <input  onChange={handleSessionChange} type="checkbox" id="session" name="session" checked={credentials.session} />
+        <label htmlFor="session">Keep me signed</label>
       </form>
     </div>
   );

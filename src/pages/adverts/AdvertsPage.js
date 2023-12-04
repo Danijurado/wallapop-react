@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
-import { logout } from "../auth/service";
 import "./AdvertsPage.css";
 import { getLatestAdverts } from "./service";
 
-function AdvertsPage({ onLogout }) {
+function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
   const [filter, setFilter] = useState({
     name: ''
@@ -14,11 +13,6 @@ function AdvertsPage({ onLogout }) {
   useEffect(() => {
     getLatestAdverts().then((adverts) => setAdverts(adverts));
   }, []);
-
-  const handleLogout = () => {
-    logout();
-    onLogout();
-  };
 
 
   const handlerNameFilterChange = (event) => {
@@ -33,13 +27,13 @@ function AdvertsPage({ onLogout }) {
   return (
     <Layout title='Lista de Anuncios'>
     <div className="advertsPage">
-      <Button onClick={handleLogout}>Logout</Button>
+    
       
       <form onSubmit={handleSubmitFilter}>
         <input onChange={handlerNameFilterChange} type='text' value={filter.name} />
         <Button type="submit" $variant="primary" >search</Button>
       </form>
-      <ul style={{ listStyle: "none", border: "1px solid black", padding: 24 }}>
+      {adverts.length ? <ul style={{ listStyle: "none", border: "1px solid black", padding: 24 }}>
         {adverts.map((ad) => (
           <li key={ad.id}>
             <img
@@ -55,7 +49,7 @@ function AdvertsPage({ onLogout }) {
             <p>Tags: {ad.tags.join(", ")}</p>
           </li>
         ))}
-      </ul>
+      </ul> : <Button $variant='primary'>Create your first ad</Button>}
     </div>
     </Layout>
   );
