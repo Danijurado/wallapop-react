@@ -45,8 +45,8 @@ function AdvertsPage() {
               padding: 24,
             }}
           >
-            {adverts.map((ad, id) => (
-              <Link to={`/adverts/${id}`}>
+            {adverts.map((ad) => (
+              <Link to={`/adverts/${ad.id}`} className="link">
                 <li key={ad.id}>
                   <img
                     src={ad.photo}

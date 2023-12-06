@@ -1,0 +1,46 @@
+
+.loginPage {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .loginPage-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center; 
+  }
+  
+  
+  .checkbox label {
+    margin-left: auto; /* Ajusta según sea necesario */
+  }
+  
+  
+  .loginPage-error {
+    background-color: rgb(224, 36, 94, 0.1);
+    border: 1px solid rgba(224, 36, 94, 0.2);
+    border-radius: 5px;
+    color: rgb(224, 36, 94);
+    margin-top: 20px;
+    padding: 10px 15px;
+  }
+
+  

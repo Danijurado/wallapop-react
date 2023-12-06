@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import { useAuth } from "./context";
 import { login } from "./service";
-
+import './loginPage.css';
 function LoginPage() {
   const { onLogin } = useAuth();
   const [credentials, setCredentials] = useState({
@@ -12,7 +12,7 @@ function LoginPage() {
     session: false,
   });
   const [error, setError] = useState(null);
-  const [fetch, setFetch] = useState(false)
+  const [fetch, setFetch] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,14 +20,14 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setFetch(true)
+      setFetch(true);
       await login(credentials);
-      setFetch(false)
+      setFetch(false);
       onLogin();
       const to = location?.state?.from || "/";
       navigate(to);
     } catch (error) {
-      setFetch(false)
+      setFetch(false);
       setError(error);
     }
   };
@@ -46,14 +46,12 @@ function LoginPage() {
   const disabled = !(credentials.email && credentials.password) || fetch;
 
   const resetError = () => {
-    setError(null)
-  }
-
-  
+    setError(null);
+  };
 
   return (
-    <div>
-      <h1>Log in to Wallapop</h1>
+    <div className="loginPage">
+      <h1 className="loginPage-title">Log in to Wallapop</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -68,19 +66,27 @@ function LoginPage() {
           value={credentials.password}
         />
         <Button type="submit" $variant="primary" disabled={disabled}>
-          {fetch ? 'Loading...' : 'Log in' }
+          {fetch ? "Loading..." : "Log in"}
         </Button>
+        <div className="checkbox">
         <input
           onChange={handleSessionChange}
           type="checkbox"
           id="session"
           name="session"
           checked={credentials.session}
+          
         />
         <label htmlFor="session">Keep me signed</label>
+
+        </div>
       </form>
-     
-      {error && <div className="loginPage-error" onClick={resetError}>{error.message}</div>}
+
+      {error && (
+        <div className="loginPage-error" onClick={resetError}>
+          {error.message}
+        </div>
+      )}
     </div>
   );
 }

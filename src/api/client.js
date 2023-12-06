@@ -10,6 +10,7 @@ client.interceptors.response.use(
     if (error.response) {
       return Promise.reject({
         message: error.response.statusText,
+        ...error.response,
         ...error.response.data,
       });
     }
