@@ -11,17 +11,25 @@ function LoginPage() {
     password: "",
     session: false,
   });
+  const [error, setError] = useState(null);
+  const [fetch, setFetch] = useState(false)
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(credentials);
-    onLogin();
-
-    const to = location?.state?.from || "/";
-    navigate(to);
+    try {
+      setFetch(true)
+      await login(credentials);
+      setFetch(false)
+      onLogin();
+      const to = location?.state?.from || "/";
+      navigate(to);
+    } catch (error) {
+      setFetch(false)
+      setError(error);
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -35,7 +43,13 @@ function LoginPage() {
   const handleSessionChange = (event) => {
     setCredentials((value) => ({ ...value, session: event.target.checked }));
   };
-  const disabled = !(credentials.email && credentials.password);
+  const disabled = !(credentials.email && credentials.password) || fetch;
+
+  const resetError = () => {
+    setError(null)
+  }
+
+  
 
   return (
     <div>
@@ -54,7 +68,7 @@ function LoginPage() {
           value={credentials.password}
         />
         <Button type="submit" $variant="primary" disabled={disabled}>
-          Log in
+          {fetch ? 'Loading...' : 'Log in' }
         </Button>
         <input
           onChange={handleSessionChange}
@@ -65,6 +79,8 @@ function LoginPage() {
         />
         <label htmlFor="session">Keep me signed</label>
       </form>
+     
+      {error && <div className="loginPage-error" onClick={resetError}>{error.message}</div>}
     </div>
   );
 }
