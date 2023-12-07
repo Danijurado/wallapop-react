@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
@@ -21,17 +21,21 @@ function AdvertDetailPage() {
   }, [navigate, params.advertsId]);
 
   const handleDelete = () => {
-    // Eliminar el anuncio
-    deleteAdvert(params.advertsId)
-      .then(() => {
-        // Redirigir a la página de nuevos anuncios después de eliminar
-        navigate("/adverts");
-      })
-      .catch((error) => {
-        if (error.status === 404) {
-          navigate("/404");
-        }
-      });
+    const confirmDelete = window.confirm(
+      "¿Estás seguro de que quieres eliminar este anuncio?"
+    );
+
+    if (confirmDelete) {
+      deleteAdvert(params.advertsId)
+        .then(() => {
+          navigate("/adverts");
+        })
+        .catch((error) => {
+          if (error.status === 404) {
+            navigate("/404");
+          }
+        });
+    }
   };
 
   return (
