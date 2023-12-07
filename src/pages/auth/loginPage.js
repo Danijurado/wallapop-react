@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import { useAuth } from "./context";
 import { login } from "./service";
-import './loginPage.css';
+import "./loginPage.css";
 function LoginPage() {
   const { onLogin } = useAuth();
   const [credentials, setCredentials] = useState({
@@ -51,17 +51,19 @@ function LoginPage() {
 
   return (
     <div className="loginPage">
-      <h1 className="loginPage-title">Log in to Wallapop</h1>
+      <h1 className="loginPage-title">Login</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"
+          placeholder="email"
           onChange={handleEmailChange}
           value={credentials.email}
         />
         <input
           type="password"
           name="password"
+          placeholder="password"
           onChange={handlePasswordChange}
           value={credentials.password}
         />
@@ -69,16 +71,14 @@ function LoginPage() {
           {fetch ? "Loading..." : "Log in"}
         </Button>
         <div className="checkbox">
-        <input
-          onChange={handleSessionChange}
-          type="checkbox"
-          id="session"
-          name="session"
-          checked={credentials.session}
-          
-        />
-        <label htmlFor="session">Keep me signed</label>
-
+          <input
+            onChange={handleSessionChange}
+            type="checkbox"
+            id="session"
+            name="session"
+            checked={credentials.session}
+          />
+          <label htmlFor="session">Keep me signed</label>
         </div>
       </form>
 

@@ -64,7 +64,9 @@ function AdvertsPage() {
             ))}
           </ul>
         ) : (
-          <Button $variant="primary">Create your first ad</Button>
+          <Button as={Link} to="/adverts/new" $variant="primary">
+            Create your first ad
+          </Button>
         )}
       </div>
     </Layout>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
@@ -6,12 +6,10 @@ import { createAdvert } from "./service";
 import "./newAdvertsPage.css";
 
 function NewAdvertsPage() {
-  
   const [fetch, setFetch] = useState(false);
- 
+
   const navigate = useNavigate();
-  
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -20,7 +18,7 @@ function NewAdvertsPage() {
     formData.append("price", event.target.price.value);
     formData.append("tags", event.target.tags.value);
     formData.append("photo", event.target.photo.files[0]);
-    
+
     try {
       setFetch(true);
       await createAdvert(formData);
@@ -36,10 +34,9 @@ function NewAdvertsPage() {
   const disabled = fetch;
 
   return (
-    <Layout title="new Adverts">
+    <Layout title="Nuevo anuncio">
       <div>
-        <h1>Nuevo Anuncio</h1>
-        <form  onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="form">
           <label>
             Nombre:
             <input type="text" name="name" required />
@@ -58,7 +55,12 @@ function NewAdvertsPage() {
 
           <label>
             Tags disponibles:
-            <input type="text" name="tags" required />
+            <select name="tags" multiple required>
+              <option value="lifestyle">Lifestyle</option>
+              <option value="motor">Motor</option>
+              <option value="work">Work</option>
+              <option value="mobile">Mobile</option>
+            </select>
           </label>
           <br />
 
