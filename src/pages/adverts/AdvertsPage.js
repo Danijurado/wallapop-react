@@ -28,13 +28,18 @@ function AdvertsPage() {
     <Layout title="Lista de Anuncios">
       <div className="advertsPage">
         <form onSubmit={handleSubmitFilter}>
-          <input
-            onChange={handlerNameFilterChange}
-            type="text"
-            value={filter.name}
-          />
+          <label>
+            Nombre:
+            <input
+              type="text"
+              name="name"
+              value={filter.name}
+              onChange={handlerNameFilterChange}
+            />
+          </label>
+
           <Button type="submit" $variant="primary">
-            search
+            Buscar
           </Button>
         </form>
         {adverts.length ? (
@@ -46,8 +51,8 @@ function AdvertsPage() {
             }}
           >
             {adverts.map((ad) => (
-              <Link to={`/adverts/${ad.id}`} className="link">
-                <li key={ad.id}>
+              <Link to={`/adverts/${ad.id}`} className="link" key={ad.id}>
+                <li>
                   <img
                     src={ad.photo}
                     alt={ad.name}
@@ -65,7 +70,7 @@ function AdvertsPage() {
           </ul>
         ) : (
           <Button as={Link} to="/adverts/new" $variant="primary">
-            Create your first ad
+            Crear tu primer anuncio
           </Button>
         )}
       </div>
