@@ -1,12 +1,13 @@
-import { createStore } from "redux";
-import reducer from "./reducers";
+import { createStore, combineReducers } from "redux";
+import * as reducers from "./reducers";
 import * as actionCreators from './actions'
 import { devToolsEnhancer } from "@redux-devtools/extension";
 
 
+
 export default function configureStore() {
     const store = createStore(
-        reducer,
+        combineReducers(reducers),
         devToolsEnhancer({actionCreators}), 
         //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
     );
