@@ -1,16 +1,28 @@
 import { ReactComponent as Icon } from "../../assets/w.svg";
 import Button from "../button";
 import { logout } from "../../pages/auth/service";
-import { useAuth } from "../../pages/auth/context";
+//import { useAuth } from "../../pages/auth/context";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
+import { useDispatch } from "react-redux";
+import { authLogout } from "../../store/actions";
+import { useSelector } from "react-redux";
 
 function Header() {
-  const { isLogged, onLogout } = useAuth();
-  const handleLogout = () => {
-    logout();
+  const dispatch = useDispatch()
+  
+  //const handleLogout = () => {
+    //logout();
+   // onLogout();
+  //};
+  const isLogged  = useSelector(state => state.auth);
+
+  const onLogout = () => {dispatch(authLogout())};
+
+  const handleLogout = async() => {
+    await logout();
     onLogout();
-  };
+  }
   return (
     <header className="header">
       <div className="header-logo">

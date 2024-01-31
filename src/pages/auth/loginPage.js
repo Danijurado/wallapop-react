@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
-import { useAuth } from "./context";
+//import { useAuth } from "./context";
 import { login } from "./service";
 import "./loginPage.css";
+import { useDispatch } from "react-redux";
+import { authLogin } from "../../store/actions";
+
+
 function LoginPage() {
-  const { onLogin } = useAuth();
+  const dispatch = useDispatch();
+  //const { onLogin } = useAuth();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -16,6 +21,8 @@ function LoginPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const onLogin = () => {dispatch(authLogin())}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
