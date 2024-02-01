@@ -1,3 +1,4 @@
+import { login } from "../pages/auth/service";
 import {
   ADVERTS_LOADED,
   AUTH_LOGIN_ERROR,
@@ -20,6 +21,22 @@ export const authLoginError = (error) => ({
   error: true,
   payload: error,
 });
+
+export function authLogin(credentials) {
+    return async function(dispatch, getState){
+        try {
+            dispatch(authLoginRequest());
+            await login(credentials);
+            dispatch(authLoginSucces());
+            
+          } catch (error) {
+            dispatch(authLoginError(error));
+            throw(error);
+          }
+        };
+    }
+
+
 
 export const authLogout = () => ({
   type: AUTH_LOGOUT,

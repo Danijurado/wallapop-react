@@ -1,25 +1,22 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
-//import { useAuth } from "./context";
-import { login } from "./service";
 import "./loginPage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { authLoginError, authLoginRequest, authLoginSucces, uiResetError } from "../../store/actions";
+import { authLogin, uiResetError } from "../../store/actions";
 import { getUi } from "../../store/selectors";
 
 
 function LoginPage() {
   const dispatch = useDispatch();
   const {isFetching, error} = useSelector(getUi);
-  //const { onLogin } = useAuth();
+  
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
     session: false,
   });
-  //const [error, setError] = useState(null);
-  //const [fetch, setFetch] = useState(false);
+ 
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,13 +25,11 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      dispatch(authLoginRequest());
-      await login(credentials);
-      dispatch(authLoginSucces());
+      await dispatch(authLogin(credentials));
       const to = location?.state?.from || "/";
       navigate(to);
     } catch (error) {
-      dispatch(authLoginError(error));
+      console.log(error);
     }
   };
 

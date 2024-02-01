@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
-import { getAdvert, deleteAdvert } from "./service";
+import { deleteAdvert } from "./service";
 import "./advertDetailPage.css";
 import { useSelector } from "react-redux";
 import { getReduxAdvert } from "../../store/selectors";

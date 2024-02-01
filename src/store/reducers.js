@@ -1,7 +1,6 @@
 import {
   ADVERTS_CREATED,
   ADVERTS_LOADED,
-  AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
   UI_RESET_ERROR,
@@ -51,27 +50,26 @@ export function ui(state = defaultState.ui, action) {
 
   }
 
-  switch (action.type) {
-    case AUTH_LOGIN_REQUEST:
-      return {
-        isFetching: true,
-        error: null
-      };
-
-    case AUTH_LOGIN_SUCCESS:
-      return {
-        isFetching: false,
-        error: null
-      };
-    
-    case UI_RESET_ERROR:
-      return {...state, error: null};
-      
-     
-  
-    default:
-      return state;
+  if(action.type.endsWith('/request')) {
+    return {
+      isFetching: true,
+      error: null
+    };
   }
-}
+
+  if(action.type.endsWith('/succes')) {
+    return {
+      isFetching: false,
+      error: null
+    };
+  }
+
+  if(action.type === UI_RESET_ERROR) {
+    return {...state, error: null};
+  }
+  
+    return state;
+  }
+
 
 //export default combineReducers({auth: auth, adverts: adverts});
