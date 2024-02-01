@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+//import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
 import { getAdvert, deleteAdvert } from "./service";
 import "./advertDetailPage.css";
+import { useSelector } from "react-redux";
+import { getReduxAdvert } from "../../store/selectors";
 
 function AdvertDetailPage() {
   const params = useParams();
   const navigate = useNavigate();
-  const [advert, setAdvert] = useState(null);
+  
+  const advert = useSelector(getReduxAdvert(params.advertId));
 
+  /*
   useEffect(() => {
     getAdvert(params.advertsId)
       .then((advert) => setAdvert(advert))
@@ -19,6 +23,7 @@ function AdvertDetailPage() {
         }
       });
   }, [navigate, params.advertsId]);
+*/
 
   const handleDelete = () => {
     const confirmDelete = window.confirm(

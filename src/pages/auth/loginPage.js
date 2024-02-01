@@ -4,38 +4,37 @@ import Button from "../../components/button";
 //import { useAuth } from "./context";
 import { login } from "./service";
 import "./loginPage.css";
-import { useDispatch } from "react-redux";
-import { authLogin } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { authLoginError, authLoginRequest, authLoginSucces, uiResetError } from "../../store/actions";
+import { getUi } from "../../store/selectors";
 
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const {isFetching, error} = useSelector(getUi);
   //const { onLogin } = useAuth();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
     session: false,
   });
-  const [error, setError] = useState(null);
-  const [fetch, setFetch] = useState(false);
+  //const [error, setError] = useState(null);
+  //const [fetch, setFetch] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const onLogin = () => {dispatch(authLogin())}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setFetch(true);
+      dispatch(authLoginRequest());
       await login(credentials);
-      setFetch(false);
-      onLogin();
+      dispatch(authLoginSucces());
       const to = location?.state?.from || "/";
       navigate(to);
     } catch (error) {
-      setFetch(false);
-      setError(error);
+      dispatch(authLoginError(error));
     }
   };
 
@@ -50,10 +49,10 @@ function LoginPage() {
   const handleSessionChange = (event) => {
     setCredentials((value) => ({ ...value, session: event.target.checked }));
   };
-  const disabled = !(credentials.email && credentials.password) || fetch;
+  const disabled = !(credentials.email && credentials.password) || isFetching;
 
   const resetError = () => {
-    setError(null);
+    dispatch(uiResetError());
   };
 
   return (
@@ -75,7 +74,7 @@ function LoginPage() {
           value={credentials.password}
         />
         <Button type="submit" $variant="primary" disabled={disabled}>
-          {fetch ? "Loading..." : "Log in"}
+          {isFetching ? "Loading..." : "Log in"}
         </Button>
         <div className="checkbox">
           <input

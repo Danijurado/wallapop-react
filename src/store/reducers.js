@@ -1,19 +1,24 @@
-
 import {
   ADVERTS_CREATED,
   ADVERTS_LOADED,
-  AUTH_LOGIN,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
+  UI_RESET_ERROR,
 } from "./types";
 
 const defaultState = {
   auth: false,
   adverts: [],
+  ui: {
+    isFetching: false,
+    error: null,
+  },
 };
 
 export function auth(state = defaultState.auth, action) {
   switch (action.type) {
-    case AUTH_LOGIN:
+    case AUTH_LOGIN_SUCCESS:
       return true;
 
     case AUTH_LOGOUT:
@@ -36,5 +41,37 @@ export function adverts(state = defaultState.adverts, action) {
   }
 }
 
+export function ui(state = defaultState.ui, action) {
+  if(action.error){
+    
+    return {
+      isFetching: false,
+      error: action.payload
+    };
+
+  }
+
+  switch (action.type) {
+    case AUTH_LOGIN_REQUEST:
+      return {
+        isFetching: true,
+        error: null
+      };
+
+    case AUTH_LOGIN_SUCCESS:
+      return {
+        isFetching: false,
+        error: null
+      };
+    
+    case UI_RESET_ERROR:
+      return {...state, error: null};
+      
+     
+  
+    default:
+      return state;
+  }
+}
 
 //export default combineReducers({auth: auth, adverts: adverts});

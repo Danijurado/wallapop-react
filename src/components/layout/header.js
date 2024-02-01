@@ -7,6 +7,7 @@ import "./header.css";
 import { useDispatch } from "react-redux";
 import { authLogout } from "../../store/actions";
 import { useSelector } from "react-redux";
+import { getIsLogeged } from "../../store/selectors";
 
 function Header() {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ function Header() {
     //logout();
    // onLogout();
   //};
-  const isLogged  = useSelector(state => state.auth);
+  const isLogged  = useSelector(getIsLogeged);
 
   const onLogout = () => {dispatch(authLogout())};
 

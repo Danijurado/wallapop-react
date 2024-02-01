@@ -4,16 +4,24 @@ import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
 import "./AdvertsPage.css";
 import { getLatestAdverts } from "./service";
+import { useDispatch, useSelector } from "react-redux";
+import { advertsLoaded } from "../../store/actions";
+import { getAdverts } from "../../store/selectors";
 
 function AdvertsPage() {
-  const [adverts, setAdverts] = useState([]);
+  const adverts = useSelector(getAdverts);
+
+  const dispatch = useDispatch();
+  
   const [filter, setFilter] = useState({
     name: "",
   });
 
   useEffect(() => {
-    getLatestAdverts().then((adverts) => setAdverts(adverts));
-  }, []);
+    getLatestAdverts().then((adverts) => {
+      dispatch(advertsLoaded(adverts))
+    });
+  }, [dispatch]);
 
   const handlerNameFilterChange = (event) => {
     setFilter((value) => ({ ...value, name: event.target.value }));
@@ -21,7 +29,7 @@ function AdvertsPage() {
 
   const handleSubmitFilter = async (event) => {
     event.preventDefault();
-    getLatestAdverts(filter).then((adverts) => setAdverts(adverts));
+    getLatestAdverts(filter).then((adverts) => {dispatch(advertsLoaded(adverts))});
   };
 
   return (
