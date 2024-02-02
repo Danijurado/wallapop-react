@@ -5,12 +5,11 @@ import Layout from "../../components/layout/layout";
 import "./AdvertsPage.css";
 import { getLatestAdverts } from "./service";
 import { useDispatch, useSelector } from "react-redux";
-import { advertsLoaded } from "../../store/actions";
+import { loadAdverts } from "../../store/actions";
 import { getAdverts } from "../../store/selectors";
 
 function AdvertsPage() {
   const adverts = useSelector(getAdverts);
-
   const dispatch = useDispatch();
   
   const [filter, setFilter] = useState({
@@ -18,9 +17,8 @@ function AdvertsPage() {
   });
 
   useEffect(() => {
-    getLatestAdverts().then((adverts) => {
-      dispatch(advertsLoaded(adverts))
-    });
+    dispatch(loadAdverts())
+    
   }, [dispatch]);
 
   const handlerNameFilterChange = (event) => {
@@ -29,7 +27,7 @@ function AdvertsPage() {
 
   const handleSubmitFilter = async (event) => {
     event.preventDefault();
-    getLatestAdverts(filter).then((adverts) => {dispatch(advertsLoaded(adverts))});
+    getLatestAdverts(filter).then((adverts) => {dispatch(loadAdverts(adverts))});
   };
 
   return (

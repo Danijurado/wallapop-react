@@ -6,6 +6,7 @@ import { thunk } from "redux-thunk";
 
 const composeEnhancers = composeWithDevTools({actionCreators});
 
+
 const middleware = [thunk];
 
 export default function configureStore(preloadedState) {
