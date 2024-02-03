@@ -1,13 +1,16 @@
+import storage from "../utils/storage";
+
 import {
   ADVERTS_CREATED_SUCCESS,
   ADVERTS_LOADED_SUCCESS,
+  ADVERTS_DETAIL_SUCCESS,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
   UI_RESET_ERROR,
 } from "./types";
 
 const defaultState = {
-  auth: false,
+  auth: !!storage.get('auth'),
   adverts: {
     areLoaded: false,
     data: [],
@@ -39,11 +42,14 @@ export function adverts(state = defaultState.adverts, action) {
     case ADVERTS_CREATED_SUCCESS:
       return {...state, data: [action.payload, ...state.data]};
 
+      case ADVERTS_DETAIL_SUCCESS:
+        return { ...state, data: [action.payload]} 
 
     default:
       return state;
   }
 }
+
 
 export function ui(state = defaultState.ui, action) {
   if(action.error){

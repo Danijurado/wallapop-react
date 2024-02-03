@@ -18,7 +18,7 @@ function App() {
         }
       />
       <Route
-        path="/adverts/:advertsId"
+        path="/adverts/:advertId"
         element={
           <RequireAuth>
             <AdvertDetailPage />

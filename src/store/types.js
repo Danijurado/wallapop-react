@@ -16,3 +16,6 @@ export const ADVERTS_CREATED_REQUEST = 'adverts/created/request';
 export const ADVERTS_CREATED_SUCCESS = 'adverts/created/success';
 export const ADVERTS_CREATED_ERROR = 'adverts/created/error';
 
+export const ADVERTS_DETAIL_REQUEST = 'adverts/detail/request';
+export const ADVERTS_DETAIL_SUCCESS = 'adverts/detail/success';
+export const ADVERTS_DETAIL_ERROR = 'adverts/detail/error';

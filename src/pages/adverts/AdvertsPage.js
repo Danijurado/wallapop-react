@@ -19,7 +19,7 @@ function AdvertsPage() {
   useEffect(() => {
     dispatch(loadAdverts())
     
-  }, [dispatch]);
+  }, []);
 
   const handlerNameFilterChange = (event) => {
     setFilter((value) => ({ ...value, name: event.target.value }));
