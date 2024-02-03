@@ -12,4 +12,7 @@ export const ADVERTS_LOADED_REQUEST = 'adverts/loaded/request';
 export const ADVERTS_LOADED_SUCCESS = 'adverts/loaded/success';
 export const ADVERTS_LOADED_ERROR = 'adverts/loaded/error';
 
-export const ADVERTS_CREATED = 'adverts/created';
+export const ADVERTS_CREATED_REQUEST = 'adverts/created/request';
+export const ADVERTS_CREATED_SUCCESS = 'adverts/created/success';
+export const ADVERTS_CREATED_ERROR = 'adverts/created/error';
+

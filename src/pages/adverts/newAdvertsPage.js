@@ -4,9 +4,12 @@ import Button from "../../components/button";
 import Layout from "../../components/layout/layout";
 import { createAdvert } from "./service";
 import "./newAdvertsPage.css";
+import { useDispatch } from "react-redux";
+import { createNewAdvert } from "../../store/actions";
 
 function NewAdvertsPage() {
   const [fetch, setFetch] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -18,7 +21,8 @@ function NewAdvertsPage() {
     formData.append("price", event.target.price.value);
     formData.append("tags", event.target.tags.value);
     formData.append("photo", event.target.photo.files[0]);
-
+    
+    dispatch(createNewAdvert(formData))
     try {
       setFetch(true);
       await createAdvert(formData);
