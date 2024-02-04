@@ -19,7 +19,7 @@ function AdvertDetailPage() {
     if (params.advertId) {
       dispatch(loadAdvert(params.advertId))
     }
-  }, [dispatch, params.advertId]);
+  }, [params.advertId]);
   /*
   useEffect(() => {
     getAdvert(params.advertsId)

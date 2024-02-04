@@ -1,4 +1,4 @@
-import { advertsCreateSuccess, advertsLoadedSuccess, authLoginSucces } from "../actions";
+import { advertsLoadedSuccess, authLoginSucces } from "../actions";
 import { ADVERTS_LOADED_SUCCESS, AUTH_LOGIN_SUCCESS } from "../types";
 
 

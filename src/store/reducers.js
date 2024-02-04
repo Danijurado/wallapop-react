@@ -9,7 +9,7 @@ import {
   UI_RESET_ERROR,
 } from "./types";
 
-const defaultState = {
+ export const defaultState = {
   auth: !!storage.get('auth'),
   adverts: {
     areLoaded: false,
